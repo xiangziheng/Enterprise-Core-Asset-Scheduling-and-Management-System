@@ -24,22 +24,28 @@ public class MaintenanceWindowController {
     private final MaintenanceWindowService maintenanceWindowService;
 
     @GetMapping
-    public Result<List<MaintenanceWindow>> list(@RequestParam Long resourceId,
+    public Result<List<MaintenanceWindow>> list(@RequestParam(required = false) Long resourceId,
                                                 @RequestParam(required = false)
                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                 LocalDateTime startTime,
                                                 @RequestParam(required = false)
                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                 LocalDateTime endTime) {
-        if (resourceId == null) {
-            throw new IllegalArgumentException("资源ID不能为空");
-        }
         if (startTime != null && endTime != null) {
-            return Result.success(
-                    maintenanceWindowService.findByResourceAndRange(resourceId, startTime, endTime)
-            );
+            if (resourceId != null) {
+                return Result.success(
+                        maintenanceWindowService.findByResourceAndRange(resourceId, startTime, endTime)
+                );
+            }
+            return Result.success(maintenanceWindowService.findAllByRange(startTime, endTime));
         }
-        return Result.success(maintenanceWindowService.findByResourceId(resourceId));
+        if (startTime != null || endTime != null) {
+            throw new IllegalArgumentException("开始时间和结束时间不能为空");
+        }
+        if (resourceId != null) {
+            return Result.success(maintenanceWindowService.findByResourceId(resourceId));
+        }
+        return Result.success(maintenanceWindowService.findAll());
     }
 
     @PostMapping

@@ -17,8 +17,15 @@ public interface MaintenanceWindowMapper {
 
     List<MaintenanceWindow> findByResourceId(@Param("resourceId") Long resourceId);
 
+    List<MaintenanceWindow> findAll();
+
     List<MaintenanceWindow> findByResourceAndRange(
             @Param("resourceId") Long resourceId,
+            @Param("startTime") LocalDateTime startTime,
+            @Param("endTime") LocalDateTime endTime
+    );
+
+    List<MaintenanceWindow> findAllByRange(
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime
     );

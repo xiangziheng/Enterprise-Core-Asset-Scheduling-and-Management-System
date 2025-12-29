@@ -29,11 +29,20 @@ public class MaintenanceWindowService {
         return maintenanceWindowMapper.findByResourceId(resourceId);
     }
 
+    public List<MaintenanceWindow> findAll() {
+        return maintenanceWindowMapper.findAll();
+    }
+
     public List<MaintenanceWindow> findByResourceAndRange(Long resourceId,
                                                           LocalDateTime startTime,
                                                           LocalDateTime endTime) {
         validateTimeRange(startTime, endTime);
         return maintenanceWindowMapper.findByResourceAndRange(resourceId, startTime, endTime);
+    }
+
+    public List<MaintenanceWindow> findAllByRange(LocalDateTime startTime, LocalDateTime endTime) {
+        validateTimeRange(startTime, endTime);
+        return maintenanceWindowMapper.findAllByRange(startTime, endTime);
     }
 
     @Transactional(rollbackFor = Exception.class)
