@@ -14,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 资源分配冲突检测测试
- * 
- * @author 宋思泽
+ * @author 金胜昔
  */
 @SpringBootTest
 class AllocationServiceTest {
@@ -159,3 +158,4 @@ class AllocationServiceTest {
         System.out.println("✅ 冲突检测方法测试 - 通过");
     }
 }
+

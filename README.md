@@ -1,4 +1,4 @@
-# 企业核心资产调度管理系统
+# 实习的总结、收获、体会、意见、建议等：
 
 ## 项目简介
 面向企业内部核心资产（服务器、会议室、设备等）的分配与调度管理系统，核心目标是避免资源在同一时间段重复分配，并提供资源、项目、类别、维护窗口和用户的统一管理。
@@ -70,7 +70,7 @@
 ### 维护窗口
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /maintenance-windows | 按资源查询（resourceId 必填，startTime/endTime 可选） |
+| GET | /maintenance-windows | 查询维护窗口（resourceId 可选，startTime/endTime 可选） |
 | POST | /maintenance-windows | 创建维护窗口 |
 | PUT | /maintenance-windows/{id} | 更新维护窗口 |
 | DELETE | /maintenance-windows/{id} | 删除维护窗口 |

@@ -1289,7 +1289,7 @@
                                 <div class="form-group">
                                     <label class="form-label">资源</label>
                                     <select class="form-select" v-model="maintenanceFilter.resourceId">
-                                        <option value="" disabled>请选择资源</option>
+                                        <option value="">全部资源</option>
                                         <option v-for="item in resources" :key="item.id" :value="String(item.id)">
                                             {{ item.name }}
                                         </option>
@@ -1713,7 +1713,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row time-range">
                         <div class="form-group">
                             <label class="form-label">开始时间</label>
                             <div class="date-time-group">

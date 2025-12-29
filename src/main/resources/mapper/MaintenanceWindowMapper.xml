@@ -25,10 +25,22 @@
         ORDER BY start_time DESC
     </select>
 
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM t_maintenance_window
+        ORDER BY start_time DESC
+    </select>
+
     <select id="findByResourceAndRange" resultMap="BaseResultMap">
         SELECT * FROM t_maintenance_window
         WHERE resource_id = #{resourceId}
           AND start_time <![CDATA[<]]> #{endTime}
+          AND end_time <![CDATA[>]]> #{startTime}
+        ORDER BY start_time ASC
+    </select>
+
+    <select id="findAllByRange" resultMap="BaseResultMap">
+        SELECT * FROM t_maintenance_window
+        WHERE start_time <![CDATA[<]]> #{endTime}
           AND end_time <![CDATA[>]]> #{startTime}
         ORDER BY start_time ASC
     </select>
