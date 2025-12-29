@@ -319,9 +319,6 @@ const app = createApp({
                 if (!this.scheduleQuery.resourceId) {
                     this.scheduleQuery.resourceId = String(this.resources[0].id);
                 }
-                if (!this.maintenanceFilter.resourceId) {
-                    this.maintenanceFilter.resourceId = String(this.resources[0].id);
-                }
                 await this.loadMaintenanceWindows();
             }
         },
@@ -798,13 +795,10 @@ const app = createApp({
                 this.maintenanceFilter.endDate,
                 this.maintenanceFilter.endTime
             );
-
-            if (!resourceId) {
-                ElMessage.warning('请选择资源');
-                return;
+            const params = {};
+            if (resourceId !== null) {
+                params.resourceId = resourceId;
             }
-
-            const params = { resourceId };
             if (startTime || endTime) {
                 if (!startTime || !endTime) {
                     ElMessage.warning('请填写完整时间范围');
