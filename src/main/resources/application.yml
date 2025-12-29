@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: asset-management-system
+  
+  # 数据源配置
+  datasource:
+    # MySQL配置（Docker MySQL使用3307端口）
+    url: jdbc:mysql://localhost:3307/asset_management?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+    
+    # H2配置（开发/测试环境，取消注释以使用）
+    # url: jdbc:h2:mem:asset_management;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    # driver-class-name: org.h2.Driver
+    # username: sa
+    # password: 
+  
+  # H2 Console（开发时可启用）
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.asset.management.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# 日志配置
+logging:
+  level:
+    com.asset.management: debug
+    org.springframework: info

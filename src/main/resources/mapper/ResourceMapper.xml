@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asset.management.mapper.ResourceMapper">
+    
+    <resultMap id="BaseResultMap" type="com.asset.management.entity.Resource">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="status" property="status"/>
+        <result column="description" property="description"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM t_resource ORDER BY id DESC
+    </select>
+    
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT * FROM t_resource WHERE id = #{id}
+    </select>
+
+    <select id="lockById" resultMap="BaseResultMap">
+        SELECT * FROM t_resource WHERE id = #{id} FOR UPDATE
+    </select>
+    
+    <select id="findByCategoryId" resultMap="BaseResultMap">
+        SELECT * FROM t_resource WHERE category_id = #{categoryId} ORDER BY id DESC
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_resource (name, category_id, status, description)
+        VALUES (#{name}, #{categoryId}, #{status}, #{description})
+    </insert>
+    
+    <update id="update">
+        UPDATE t_resource
+        SET name = #{name},
+            category_id = #{categoryId},
+            status = #{status},
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteById">
+        DELETE FROM t_resource WHERE id = #{id}
+    </delete>
+    
+</mapper>

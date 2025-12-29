@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asset.management.mapper.MaintenanceWindowMapper">
+
+    <resultMap id="BaseResultMap" type="com.asset.management.entity.MaintenanceWindow">
+        <id column="id" property="id"/>
+        <result column="resource_id" property="resourceId"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="type" property="type"/>
+        <result column="reason" property="reason"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT * FROM t_maintenance_window WHERE id = #{id}
+    </select>
+
+    <select id="findByResourceId" resultMap="BaseResultMap">
+        SELECT * FROM t_maintenance_window
+        WHERE resource_id = #{resourceId}
+        ORDER BY start_time DESC
+    </select>
+
+    <select id="findByResourceAndRange" resultMap="BaseResultMap">
+        SELECT * FROM t_maintenance_window
+        WHERE resource_id = #{resourceId}
+          AND start_time <![CDATA[<]]> #{endTime}
+          AND end_time <![CDATA[>]]> #{startTime}
+        ORDER BY start_time ASC
+    </select>
+
+    <select id="findConflicts" resultMap="BaseResultMap">
+        SELECT * FROM t_maintenance_window
+        WHERE resource_id = #{resourceId}
+          AND start_time <![CDATA[<]]> #{endTime}
+          AND end_time <![CDATA[>]]> #{startTime}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_maintenance_window (resource_id, start_time, end_time, type, reason)
+        VALUES (#{resourceId}, #{startTime}, #{endTime}, #{type}, #{reason})
+    </insert>
+
+    <update id="update">
+        UPDATE t_maintenance_window
+        SET resource_id = #{resourceId},
+            start_time = #{startTime},
+            end_time = #{endTime},
+            type = #{type},
+            reason = #{reason}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM t_maintenance_window WHERE id = #{id}
+    </delete>
+
+</mapper>

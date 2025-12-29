@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asset.management.mapper.ProjectMapper">
+    
+    <resultMap id="BaseResultMap" type="com.asset.management.entity.Project">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="manager" property="manager"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM t_project ORDER BY id DESC
+    </select>
+    
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT * FROM t_project WHERE id = #{id}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_project (name, manager, description, status)
+        VALUES (#{name}, #{manager}, #{description}, #{status})
+    </insert>
+    
+    <update id="update">
+        UPDATE t_project
+        SET name = #{name},
+            manager = #{manager},
+            description = #{description},
+            status = #{status}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteById">
+        DELETE FROM t_project WHERE id = #{id}
+    </delete>
+    
+</mapper>
+

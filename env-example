@@ -1,0 +1,10 @@
+# Docker Compose项目配置示例
+# 复制此文件为 .env 并根据需要修改
+
+# 项目名称（避免中文路径问题）
+COMPOSE_PROJECT_NAME=asset-management
+
+# MySQL配置
+MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=asset_management
+
